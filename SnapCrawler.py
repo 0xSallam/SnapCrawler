@@ -7,6 +7,18 @@ from playwright.sync_api import sync_playwright # browser automation for screens
 
 DEFAULT_FOLDER = 'screenshots' # default directory to save screenshots
 
+print(r"""
+   _____                    _____                    _           
+  / ____|                  / ____|                  | |          
+ | (___  _ __   __ _ _ __ | |     _ __ __ ___      _| | ___ _ __ 
+  \___ \| '_ \ / _` | '_ \| |    | '__/ _` \ \ /\ / / |/ _ \ '__|
+  ____) | | | | (_| | |_) | |____| | | (_| |\ V  V /| |  __/ |   
+ |_____/|_| |_|\__,_| .__/ \_____|_|  \__,_| \_/\_/ |_|\___|_|   
+                    | |                                          
+                    |_|                                          
+                Developed 💻 by 0xSallam
+""")
+
 def get_robots(url, ua): # fetch and parse robots.txt for a given site
     p = urlparse(url)
     rp = RobotFileParser()
