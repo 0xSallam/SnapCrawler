@@ -53,8 +53,8 @@ def crawl(start, depth, delay, ua, folder=DEFAULT_FOLDER): # main crawler functi
         while q:
             url,d = q.popleft()
             if url in seen or d>depth or urlparse(url).netloc!=host or not rp.can_fetch(ua,url): continue 
-            print(f"Depth {d}: {url}") 
-            seen.add(url); out.append({'depth':d,'url':url})
+            print(url) 
+            seen.add(url); out.append({'url':url})
             take_screenshot(page,url,folder)
             try:
                 r=requests.get(url,headers={'User-Agent':ua},timeout=5) # make HTTP GET request
@@ -70,9 +70,9 @@ def save(data, file): # save crawl results to a file
     if ext=='.json': json.dump(data, open(file,'w', encoding='utf-8'), indent=2)
     elif ext=='.csv': 
         w=csv.writer(open(file,'w',newline=''))
-        w.writerow(['depth','url']); [w.writerow([i['depth'],i['url']]) for i in data]
+        w.writerow(['url']); [w.writerow([i['url']]) for i in data]
     else:
-        with open(file,'w',encoding='utf-8') as f: [f.write(f"Depth {i['depth']}: {i['url']}\n") for i in data]
+        with open(file,'w',encoding='utf-8') as f: [f.write(f"{i['url']}\n") for i in data]
 
 if __name__=='__main__': 
     p=argparse.ArgumentParser() 
@@ -82,4 +82,4 @@ if __name__=='__main__':
     args=p.parse_args()
     res=crawl(args.start,args.depth,args.delay,args.user_agent) 
     save(res,args.output) 
-    print(f"Done: {len(res)}links found! -> {args.output}")
+    print(f"Done: {len(res)} links found! -> {args.output}")
